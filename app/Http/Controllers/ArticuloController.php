@@ -13,7 +13,8 @@ class ArticuloController extends Controller
      */
     public function index()
     {
-        //
+       $articulos = Articulo::All();
+       return $articulos;
     }
 
     /**
@@ -34,7 +35,12 @@ class ArticuloController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $articulo = new Articulo();
+        $articulo->descripcion = $request->descripcion;
+        $articulo->precio = $request->precio;
+        $articulo->stock = $request->stock;
+
+        $articulo->save();
     }
 
     /**
@@ -66,9 +72,16 @@ class ArticuloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $articulo = Articulo::findOrFail($request->id);
+        $articulo->descripcion = $request->descripcion;
+        $articulo->precio = $request->precio;
+        $articulo->stock = $request->stock;
+        
+        $articulo->save();
+
+        return $articulo;
     }
 
     /**
